@@ -13,4 +13,12 @@
 #ifndef MACROS_H
 # define MACROS_H
 
+# define SPACE_CHAR	' '
+# define NOT_EQUAL 0
+# define INT_SIZE_DIGITS 10
+
+# define ERROR_MSG  "Error\n"
+# define INT_MAX_STR "2147483647"
+# define INT_MIN_STR "-2147483648"
+
 #endif

@@ -5,7 +5,11 @@ OBJS_DIR = ./objects
 INCLUDES_DIR = ./includes
 LIBS_DIR = ./libraries
 
-SOURCES = $(SRCS_DIR)/main.c
+SOURCES = \
+	$(SRCS_DIR)/main.c \
+	$(SRCS_DIR)/operations.c \
+	$(SRCS_DIR)/utils.c \
+	$(SRCS_DIR)/sorting.c \
 
 OBJECTS = $(SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 
@@ -16,7 +20,7 @@ PRINTF_DIR = $(LIBS_DIR)/printf
 PRINTF = $(PRINTF_DIR)/libftprintf.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(INCLUDES_DIR) -I$(LIBFT_DIR)/includes -I$(PRINTF_DIR)/includes
+CFLAGS = -Wall -Wextra -Werror -g -I$(INCLUDES_DIR) -I$(LIBFT_DIR)/includes -I$(PRINTF_DIR)/includes
 
 all: $(LIBFT) $(PRINTF) $(NAME)
 
