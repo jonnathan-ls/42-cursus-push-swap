@@ -1,35 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/04 17:25:59 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/01/04 17:29:31 by jlacerda         ###   ########.fr       */
+/*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
+/*   Updated: 2025/01/12 21:16:45 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
-# include	<stdbool.h>
-#	include	"libft.h"
-typedef struct s_num_str
-{
-	int			size;
-	const char	*value;
-	bool		has_signal;
-	bool		is_negative;
-}	t_num_str;
-typedef struct s_stack
-{
-	t_list	*head;
-	int	size;
-}	t_stack;
+#include "push_swap.h"
+#include "libft.h"
 
-typedef struct s_env
+void	push(t_stack *a, t_stack *b)
 {
-	t_stack	a;
-	t_stack	b;
-}	t_env;
-#endif
+	t_list	*head_a;
+	t_list	*head_b;
+
+	if (b->size > 0)
+	{
+		head_a = a->head;
+		head_b = b->head;
+		b->head = b->head->next;
+		a->head = head_b;
+		a->head->next = head_a;
+		a->size++;
+		b->size--;
+	}
+}
+
+void	pa(t_stack *a, t_stack *b)
+{
+	push(a, b);
+}
+
+void	pb(t_stack *a, t_stack *b)
+{
+	push(b, a);
+}

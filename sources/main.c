@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "ft_printf.h"
 #include "libft.h"
+#include "ft_printf.h"
 
 static bool	is_greater_than_integer(t_num_str num)
 {
@@ -95,13 +95,48 @@ static void	validates_arguments(int argc, char **argv)
 	}
 }
 
+void	init_stacks(t_env *env,	int argc, char **argv)
+{
+	int		index;
+	int		*number;
+	t_list	*new;
+
+	index = 1;
+	env->a.head = NULL;
+	env->a.size = 0;
+	env->b.head = NULL;
+	env->b.size = 0;
+	while (index < argc)
+	{
+		number = (int *)malloc(sizeof(int));
+		if (!number)
+			print_error_and_exit_failure();
+		*number = ft_atoi(argv[index]);
+		new = ft_lstnew(number);
+		if (!new)
+			print_error_and_exit_failure();
+		ft_lstadd_back(&env->a.head, new);
+		env->a.size++;
+		index++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
+	t_env	env;
+	t_list	*temp;
+
 	if (argc == 1)
 		return (EXIT_FAILURE);
 	if (argc < 3)
 		print_error_and_exit_failure();
 	validates_arguments(argc, argv);
-	ft_printf("Arguments are valid\n");
+	init_stacks(&env, argc, argv);
+	temp = env.a.head;
+	while (temp)
+	{
+		ft_printf("%d\n", *(int *)temp->content);
+		temp = temp->next;
+	}
 	return (EXIT_SUCCESS);
 }

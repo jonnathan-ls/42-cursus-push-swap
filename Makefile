@@ -7,9 +7,12 @@ LIBS_DIR = ./libraries
 
 SOURCES = \
 	$(SRCS_DIR)/main.c \
-	$(SRCS_DIR)/operations.c \
 	$(SRCS_DIR)/utils.c \
 	$(SRCS_DIR)/sorting.c \
+	$(SRCS_DIR)/rotate_up.c \
+	$(SRCS_DIR)/rotate_down.c \
+	$(SRCS_DIR)/swap.c \
+	$(SRCS_DIR)/push.c \
 
 OBJECTS = $(SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 
