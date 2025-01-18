@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/12 15:46:07 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:02:37 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	init_stacks(t_env *env,	int argc, char **argv)
 	int		*number;
 	t_list	*new;
 
-	index = 1;
+	index = 0;
 	env->a.head = NULL;
 	env->a.size = 0;
 	env->b.head = NULL;
@@ -121,17 +121,42 @@ void	init_stacks(t_env *env,	int argc, char **argv)
 	}
 }
 
+bool	is_string_with_arguments(const char *str)
+{
+	int	index;
+
+	index = 0;
+	while (str[index])
+	{
+		if (str[index] == SPACE_CHAR || str[index] == TAB_CHAR)
+			return (true);
+		index++;
+	}
+	return (false);
+}
 int	main(int argc, char **argv)
 {
 	t_env	env;
 	t_list	*temp;
+	char	**string_list;
+	int		size;
 
 	if (argc == 1)
 		return (EXIT_FAILURE);
-	if (argc < 3)
-		print_error_and_exit_failure();
-	validates_arguments(argc, argv);
-	init_stacks(&env, argc, argv);
+	if (argc == 2 && is_string_with_arguments(argv[1]))
+	{
+		string_list = ft_split(argv[1], SPACE_CHAR);
+		if (!string_list)
+			print_error_and_exit_failure();
+		size = ft_strslen(string_list);
+		validates_arguments(size, string_list);
+		init_stacks(&env, size, string_list);
+	}
+	else
+	{
+		validates_arguments(argc, argv);
+		init_stacks(&env, argc, argv + 1);
+	}
 	temp = env.a.head;
 	while (temp)
 	{

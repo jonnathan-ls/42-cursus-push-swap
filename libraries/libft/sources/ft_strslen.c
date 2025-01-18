@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   macros.h                                           :+:      :+:    :+:   */
+/*   ft_strslen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/04 17:25:59 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/01/18 17:47:08 by jlacerda         ###   ########.fr       */
+/*   Created: 2025/01/18 17:52:42 by jlacerda          #+#    #+#             */
+/*   Updated: 2025/01/18 17:53:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MACROS_H
-# define MACROS_H
+#include "libft.h"
 
-# define SPACE_CHAR	' '
-# define TAB_CHAR '\t'
-# define NOT_EQUAL 0
-# define INT_SIZE_DIGITS 10
+int	ft_strslen(char **strs)
+{
+	int	index;
 
-# define ERROR_MSG  "Error\n"
-# define INT_MAX_STR "2147483647"
-# define INT_MIN_STR "-2147483648"
-
-#endif
+	index = 0;
+	while (strs[index])
+		index++;
+	return (index);
+}

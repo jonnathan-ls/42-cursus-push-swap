@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 21:46:38 by jlacerda          #+#    #+#             */
-/*   Updated: 2024/12/25 20:34:41 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:56:17 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		ft_isdigit(int c);
 int		ft_isprint(int c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
+int		ft_strslen(char **strs);
 size_t	ft_strlen(const char *s);
 int		ft_atoi(const char *nptr);
 void	ft_putnbr_fd(int n, int fd);
