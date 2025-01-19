@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/18 23:02:46 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/24 00:46:06 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,25 @@
 
 static bool	is_greater_than_integer(t_num_str num)
 {
-	int	index;
+	int		index;
+	char	*str_to_compare;
 
 	index = 0;
 	if (num.has_signal)
 		index++;
 	if (num.is_negative)
-	{
-		while (num.value[index])
-		{
-			if (num.value[index] > INT_MIN_STR[index])
-				return (true);
-			index++;
-		}
-	}
+		str_to_compare = INT_MIN_STR;
 	else
+		str_to_compare = INT_MAX_STR;
+	while (num.value[index])
 	{
-		while (num.value[index])
-		{
-			if (num.value[index] > INT_MAX_STR[index])
-				return (true);
-			index++;
-		}
+		if (num.value[index] < str_to_compare[index])
+			return (false);
+		if (num.value[index] > str_to_compare[index])
+			return (true);
+		index++;
 	}
-	return (false);
+	return (true);
 }
 
 static bool	is_valid_integer(const char *number_str)
@@ -84,7 +79,6 @@ static void	validates_arguments(char **args, int size)
 		curr++;
 	}
 	curr = 0;
-
 	while (curr < size)
 	{
 		next = curr + 1;
@@ -100,16 +94,23 @@ static void	validates_arguments(char **args, int size)
 
 void	push_node(t_stack *stack, t_node *node)
 {
-
-	if (stack->base == NULL)
-		stack->base = node;
-	if (stack->top == NULL)
+	if (stack->size == 0)
 	{
 		stack->top = node;
-		return ;
+		stack->top->next = node;
+		stack->top->prev = node;
+		stack->base = node;
+		stack->base->next = node;
+		stack->base->prev = node;
 	}
-	node->next = stack->top;
-	stack->top = node;
+	else
+	{
+		node->next = stack->top;
+		node->prev = stack->base;
+		stack->top->prev = node;
+		stack->base->next = node;
+		stack->top = node;
+	}
 }
 
 t_node	*new_node(int number)
@@ -142,6 +143,7 @@ void	init_stacks(t_env *env,	int size, char **args_list)
 	{
 		number = ft_atoi(args_list[size - 1]);
 		node = new_node(number);
+		node->index = size - 1;
 		if (previous_node != NULL)
 			node->prev = previous_node;
 		push_node(&env->a, node);
@@ -153,24 +155,22 @@ void	init_stacks(t_env *env,	int size, char **args_list)
 	env->a.top->prev = env->a.base;
 }
 
-bool is_sorted(t_stack *stack)
+void sort_three(t_env *env)
 {
-	t_node	*node;
+	t_node	*biggest_node;
 
-	node = stack->top;
-	while (node->next)
-	{
-		if (node->nbr > node->next->nbr)
-			return (false);
-		node = node->next;
-	}
-	return (true);
+	biggest_node = find_the_biggest_number(&env->a);
+	if (biggest_node == env->a.top)
+		ra(env);
+	else if (biggest_node == env->a.top->next)
+		rra(env);
+	if (env->a.top->nbr > env->a.top->next->nbr)
+		sa(env);
 }
 
 int	main(int argc, char **argv)
 {
 	t_env	env;
-	t_node	*temp;
 	char	**args;
 	int		args_count;
 
@@ -185,17 +185,20 @@ int	main(int argc, char **argv)
 	init_stacks(&env, args_count, args);
 	if (is_sorted(&env.a))
 		return (EXIT_SUCCESS);
-	// pb(&env);
-	// pb(&env);
-	// if (env.a.top->nbr > env.a.top->next->nbr)
-	// 	sb(&env.b);
-	temp = env.a.top;
-	int i = 0;
-	while (i < env.a.size)
-	{
-		ft_printf("%d\n", temp->nbr);
-		temp = temp->next;
-		i++;
-	}
+	if (env.a.size == 2)
+		sa(&env);
+	else if (env.a.size == 3)
+		sort_three(&env);
+	else
+		sort_stack(&env);
+	// t_node *temp = env.a.top;
+	// int i = 0;
+	// ft_printf("\n\nStack A\n\n");
+	// while (i < env.a.size)
+	// {
+	// 	ft_printf("%d\n", temp->nbr);
+	// 	temp = temp->next;
+	// 	i++;
+	// }
 	return (EXIT_SUCCESS);
 }
