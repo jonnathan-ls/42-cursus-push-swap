@@ -6,36 +6,36 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/12 21:16:45 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/18 22:21:15 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "libft.h"
 
-void	push(t_stack *a, t_stack *b)
+void	push(t_stack *from, t_stack *to)
 {
-	t_list	*head_a;
-	t_list	*head_b;
+	t_node	*top_of_a;
+	t_node	*top_of_b;
 
-	if (b->size > 0)
+	if (to->size > 0)
 	{
-		head_a = a->head;
-		head_b = b->head;
-		b->head = b->head->next;
-		a->head = head_b;
-		a->head->next = head_a;
-		a->size++;
-		b->size--;
+		top_of_a = from->top;
+		top_of_b = to->top;
+		to->top = to->top->next;
+		from->top = top_of_b;
+		from->top->next = top_of_a;
+		from->size++;
+		to->size--;
 	}
 }
 
-void	pa(t_stack *a, t_stack *b)
+void	pa(t_env *env)
 {
-	push(a, b);
+	push(&(*env).b, &(*env).a);
 }
 
-void	pb(t_stack *a, t_stack *b)
+void	pb(t_env *env)
 {
-	push(b, a);
+	push(&(*env).a, &(*env).b);
 }

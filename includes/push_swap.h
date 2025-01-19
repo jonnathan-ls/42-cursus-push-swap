@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 17:25:59 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/01/04 18:05:27 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/18 21:40:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	rr(t_stack *a, t_stack *b);
 void	rra(t_stack *a);
 void	rrb(t_stack *b);
 void	rrr(t_stack *a, t_stack *b);
-void	pa(t_stack *a, t_stack *b);
-void	pb(t_stack *a, t_stack *b);
+void	pa(t_env *env);
+void	pb(t_env *env);
 void	sa(t_stack *stack);
 void	sb(t_stack *stack);
 void	ss(t_stack *a, t_stack *b);

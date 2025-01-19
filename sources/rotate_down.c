@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/12 21:16:25 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/18 22:23:15 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,24 @@
 
 static void	rotate_down(t_stack *stack)
 {
-	t_list	*head;
-	t_list	*last;
-	t_list	*before_last;
+	t_node	*top;
+	t_node	*base;
+	t_node	*previous_base;
 
-	before_last = NULL;
+	previous_base = NULL;
 	if (stack->size > 1)
 	{
-		head = stack->head;
-		last = head;
-		while (last->next)
+		top = stack->top;
+		base = top;
+		while (base->next)
 		{
-			if (before_last && last->next->next == NULL)
-				before_last = last;
-			last = last->next;
+			if (previous_base && base->next->next == NULL)
+				previous_base = base;
+			base = base->next;
 		}
-		last->next = head;
-		stack->head = last;
-		before_last->next = NULL;
+		base->next = top;
+		stack->top = base;
+		previous_base->next = NULL;
 	}
 }
 

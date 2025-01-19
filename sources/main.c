@@ -6,13 +6,13 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/18 18:02:37 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/18 23:02:46 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
 #include "libft.h"
 #include "ft_printf.h"
+#include "push_swap.h"
 
 static bool	is_greater_than_integer(t_num_str num)
 {
@@ -51,7 +51,7 @@ static bool	is_valid_integer(const char *number_str)
 	num_str.value = number_str;
 	num_str.size = ft_strlen(number_str);
 	num_str.is_negative = number_str[index] == '-';
-	num_str.has_signal = num_str.is_negative || number_str[index] == '+';
+	num_str.has_signal = (num_str.is_negative || (number_str[index] == '+'));
 	if (num_str.has_signal)
 		index++;
 	while (number_str[index])
@@ -69,25 +69,28 @@ static bool	is_valid_integer(const char *number_str)
 	return (true);
 }
 
-static void	validates_arguments(int argc, char **argv)
+static void	validates_arguments(char **args, int size)
 {
 	int	curr;
 	int	next;
 
-	curr = 1;
-	while (curr < argc)
+	if (args == NULL)
+		print_error_and_exit_failure();
+	curr = 0;
+	while (curr < size)
 	{
-		if (!is_valid_integer(argv[curr]))
+		if (!is_valid_integer(args[curr]))
 			print_error_and_exit_failure();
 		curr++;
 	}
-	curr = 1;
-	while (curr < argc)
+	curr = 0;
+
+	while (curr < size)
 	{
 		next = curr + 1;
-		while (next < argc)
+		while (next < size)
 		{
-			if (ft_atoi(argv[curr]) == ft_atoi(argv[next]))
+			if (ft_atoi(args[curr]) == ft_atoi(args[next]))
 				print_error_and_exit_failure();
 			next++;
 		}
@@ -95,73 +98,104 @@ static void	validates_arguments(int argc, char **argv)
 	}
 }
 
-void	init_stacks(t_env *env,	int argc, char **argv)
+void	push_node(t_stack *stack, t_node *node)
 {
-	int		index;
-	int		*number;
-	t_list	*new;
 
-	index = 0;
-	env->a.head = NULL;
+	if (stack->base == NULL)
+		stack->base = node;
+	if (stack->top == NULL)
+	{
+		stack->top = node;
+		return ;
+	}
+	node->next = stack->top;
+	stack->top = node;
+}
+
+t_node	*new_node(int number)
+{
+	t_node	*node;
+
+	node = (t_node *)malloc(sizeof(t_node));
+	if (!node)
+		print_error_and_exit_failure();
+	node->nbr = number;
+	node->next = NULL;
+	node->prev = NULL;
+	return (node);
+}
+
+void	init_stacks(t_env *env,	int size, char **args_list)
+{
+	int		number;
+	t_node	*node;
+	t_node	*previous_node;
+
+	previous_node = NULL;
+	env->a.top = NULL;
+	env->b.top = NULL;
+	env->a.base = NULL;
+	env->b.base = NULL;
 	env->a.size = 0;
-	env->b.head = NULL;
 	env->b.size = 0;
-	while (index < argc)
+	while (size > 0)
 	{
-		number = (int *)malloc(sizeof(int));
-		if (!number)
-			print_error_and_exit_failure();
-		*number = ft_atoi(argv[index]);
-		new = ft_lstnew(number);
-		if (!new)
-			print_error_and_exit_failure();
-		ft_lstadd_back(&env->a.head, new);
+		number = ft_atoi(args_list[size - 1]);
+		node = new_node(number);
+		if (previous_node != NULL)
+			node->prev = previous_node;
+		push_node(&env->a, node);
+		previous_node = node;
 		env->a.size++;
-		index++;
+		size--;
 	}
+	env->a.base->next = env->a.top;
+	env->a.top->prev = env->a.base;
 }
 
-bool	is_string_with_arguments(const char *str)
+bool is_sorted(t_stack *stack)
 {
-	int	index;
+	t_node	*node;
 
-	index = 0;
-	while (str[index])
+	node = stack->top;
+	while (node->next)
 	{
-		if (str[index] == SPACE_CHAR || str[index] == TAB_CHAR)
-			return (true);
-		index++;
+		if (node->nbr > node->next->nbr)
+			return (false);
+		node = node->next;
 	}
-	return (false);
+	return (true);
 }
+
 int	main(int argc, char **argv)
 {
 	t_env	env;
-	t_list	*temp;
-	char	**string_list;
-	int		size;
+	t_node	*temp;
+	char	**args;
+	int		args_count;
 
-	if (argc == 1)
+	if (argc == 1)	
 		return (EXIT_FAILURE);
-	if (argc == 2 && is_string_with_arguments(argv[1]))
-	{
-		string_list = ft_split(argv[1], SPACE_CHAR);
-		if (!string_list)
-			print_error_and_exit_failure();
-		size = ft_strslen(string_list);
-		validates_arguments(size, string_list);
-		init_stacks(&env, size, string_list);
-	}
+	if (argc == 2 && argv[1][0] != '\0')
+		args = ft_split(argv[1], SPACE_CHAR);
 	else
+		args = argv + 1;
+	args_count = ft_strslen(args);
+	validates_arguments(args, args_count);
+	init_stacks(&env, args_count, args);
+	if (is_sorted(&env.a))
+		return (EXIT_SUCCESS);
+	// pb(&env);
+	// pb(&env);
+	// if (env.a.top->nbr > env.a.top->next->nbr)
+	// 	sb(&env.b);
+	temp = env.a.top;
+	int i = 0;
+	while (i < env.a.size)
 	{
-		validates_arguments(argc, argv);
-		init_stacks(&env, argc, argv + 1);
-	}
-	temp = env.a.head;
-	while (temp)
-	{
-		ft_printf("%d\n", *(int *)temp->content);
+		ft_printf("%d\n", temp->nbr);
 		temp = temp->next;
+		i++;
 	}
 	return (EXIT_SUCCESS);
 }
