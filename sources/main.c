@@ -6,12 +6,11 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/24 00:46:06 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/24 02:00:10 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "ft_printf.h"
 #include "push_swap.h"
 
 static bool	is_greater_than_integer(t_num_str num)
@@ -168,13 +167,37 @@ void sort_three(t_env *env)
 		sa(env);
 }
 
+void free_mallocs(t_env *env, int argc, char **args, int args_count)
+{
+	int		index;
+
+	index = 0;
+	while (index < env->a.size)
+	{
+		free(env->a.top);
+		env->a.top = env->a.top->next;
+		index++;
+	}
+	if (argc == 2)
+	{
+		index = 0;
+		while (index < args_count)
+		{
+			free(args[index]);
+			index++;
+		}
+		free(args);
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_env	env;
 	char	**args;
 	int		args_count;
 
-	if (argc == 1)	
+	args = NULL;
+	if (argc == 1)
 		return (EXIT_FAILURE);
 	if (argc == 2 && argv[1][0] != '\0')
 		args = ft_split(argv[1], SPACE_CHAR);
@@ -191,14 +214,6 @@ int	main(int argc, char **argv)
 		sort_three(&env);
 	else
 		sort_stack(&env);
-	// t_node *temp = env.a.top;
-	// int i = 0;
-	// ft_printf("\n\nStack A\n\n");
-	// while (i < env.a.size)
-	// {
-	// 	ft_printf("%d\n", temp->nbr);
-	// 	temp = temp->next;
-	// 	i++;
-	// }
+	free_mallocs(&env, argc, args, args_count);
 	return (EXIT_SUCCESS);
 }

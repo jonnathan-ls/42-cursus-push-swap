@@ -6,18 +6,13 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/22 21:23:21 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/24 01:27:18 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "libft.h"
 
-// rotaciona	a pilha para baixo
-// top passa a ser o proximo
-// base	passa a ser o top
-// top prev	passa a ser o base
-// base	next passa a ser o top
 static void	rotate_down(t_stack *stack)
 {
 	if (stack->size > 1)

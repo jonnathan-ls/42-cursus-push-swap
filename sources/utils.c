@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/24 00:43:04 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/24 01:28:07 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_error_and_exit_failure(void)
 bool	is_sorted(t_stack *stack)
 {
 	t_node	*node;
-	int index;
+	int		index;
 
 	if (!stack || stack->size == 0)
 		return (true);
@@ -92,7 +92,7 @@ void	update_index_in_stack(t_stack *stack)
 	node = stack->top;
 	while (index < stack->size)
 	{
-		node->above_middle_stack = (index <= stack->size / 2);
+		node->above_middle = (index <= stack->size / 2);
 		node->index = index;
 		node = node->next;
 		index++;

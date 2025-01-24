@@ -6,45 +6,12 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/24 00:36:16 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/24 01:32:29 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "libft.h"
-
-// validates if the stack is sorted in ascending order
-// if not sorted then verif if stack has 2 elements, if yes swap them
-
-// if stack has 3 elements, sort them in ascending order
-
-// if stack has more than 3 elements, then sort the stack with the following algorithm: Turk Algorithm
-
-// push until 2 elements to stack b, mantaining the stack a with 3 elements
-// while the stack a has more than 3 elements
-// find the cheapest node to push to b, sorting b stack in descending order
-
-// a target_node node in b is the closest smaller number to the a node
-// if no closest smaller number is found, then the target_node node is the max value in b
-
-// cost analysis:
-// find the cheapest node to push to b
-// the formula is: cost = x operations to bring a node to the top of a + y operations to bring a->target_node to the top of b
-// the cheapest node to push to b is the one with the lowest cost
-
-
-// when the stack a for equal or less than 3 elements
-// then sort the stack a in ascending order
-
-// push back to stack a the elements in stack b in descending order
-
-// every b node has a target_node node in a that is the closest bigger number to the b node
-// if no closest bigger number is found, then the target_node node is the min value in a
-// calculate the cost of pushing a node from b to a
-// the formula is: cost = only x operations to bring a node to the top
-
-// afeter pushing all the nodes from b to a, sort the stack a in ascending order
-// moving the smallest number to the top of the stack
 
 static t_node	*find_the_smallest_closest_number(t_node *node, t_stack *stack)
 {
@@ -100,15 +67,6 @@ static t_node	*find_the_biggest_closest_number(t_node *node, t_stack *stack)
 	return (closest_bigger_node);
 }
 
-
-// static void	move_two_elements_to_stack_b(t_env *env)
-// {
-// 	pb(env);
-// 	pb(env);
-// 	if (env->b.top->nbr > env->b.top->next->nbr)
-// 		sb(env);
-// }
-
 void	set_target_nodes_in_a(t_env *env)
 {
 	int		index;
@@ -129,35 +87,14 @@ void	set_target_nodes_in_a(t_env *env)
 	}
 }
 
-// static void	cost_analysis_a(t_stack_node *a, t_stack_node *b) //Define a functio that analyses the cost of the `a` node along with it's target `b` node, which is the sum of the number of instructions for both the nodes to rotate to the top of their stacks
-// {
-// 	int	len_a; //To store the length of stack `a`
-// 	int	len_b; //To store the length of stack `b`
-
-// 	len_a = stack_len(a);
-// 	len_b = stack_len(b);
-// 	while (a) //Loop through each node until the end of the stack is reached
-// 	{
-// 		a->push_cost = a->index; //Assign the current `a` node's push cost, its' index value
-// 		if (!(a->above_median)) //Check if the above_median data is false, meaning it is below median
-// 			a->push_cost = len_a - (a->index); //If so, update `a` node's push cost to the stack's length - index
-// 		if (a->target_node->above_median) //Check if `a` node's target node `b` has a "true" above median attribute, meaning the target `b` node is above median
-// 			a->push_cost += a->target_node->index; //If so, update `a` node's push cost, the sum of (its current index) + (its target `b` node's index)
-// 		else //If `a` node is indeed above median and its target `b` node is below median
-// 			a->push_cost += len_b - (a->target_node->index); //Update `a` node's push cost, the sum of (its current index) + (`b` stack's length - its target `b` node's index)
-// 		a = a->next; //Move to the next `a` node for its cost analysis
-// 	}
-// }
-
-
 int	calculate_cost_to_push_node_to_stack_b(t_node *node, t_env *env)
 {
 	int	cost_to_push;
 
 	cost_to_push = node->index;
-	if (!node->above_middle_stack)
+	if (!node->above_middle)
 		cost_to_push = env->a.size - node->index;
-	if (node->target_node->above_middle_stack)
+	if (node->target_node->above_middle)
 		cost_to_push += node->target_node->index;
 	else
 		cost_to_push += env->b.size - node->target_node->index;
@@ -178,7 +115,7 @@ t_node	*find_node_to_push_in_stack_b(t_env *env)
 	cheapest_node = NULL;
 	while (index < env->a.size)
 	{
-		node->index	= index;
+		node->index = index;
 		node_cost = calculate_cost_to_push_node_to_stack_b(node, env);
 		if (cheapest_node == NULL || node_cost < cheapest_cost)
 		{
@@ -192,86 +129,76 @@ t_node	*find_node_to_push_in_stack_b(t_env *env)
 	return (cheapest_node);
 }
 
-// static void	push_node_in_stack_b(t_env *env, t_node *node)
-// {
-// 	if (node->target_node->index <= env->b.size / 2)
-// 		while (env->b.top != node->target_node)
-// 			rb(env);
-// 	else
-// 		while (env->b.top != node->target_node)
-// 			rrb(env);
-// 	if (node == env->a.top)
-// 		return (pb(env));
-// 	if (node == env->a.top->next)
-// 		sa(env);
-// 	else if (node->index <= env->a.size / 2)
-// 		while (env->a.top != node)
-// 			ra(env);
-// 	else
-// 		while (env->a.top != node)
-// 			rra(env);
-// 	pb(env);
-// } // TODO da para melhorar para usar rr e rrr ?
+static void	push_node_in_stack_b(t_env *env, t_node *node)
+{
+	int	movements_in_a;
+	int	movements_in_b;
 
-static void push_node_in_stack_b(t_env *env, t_node *node) {
-	int a_moves = (node->index <= env->a.size / 2) ? node->index : env->a.size - node->index;
-	int b_moves = (node->target_node->index <= env->b.size / 2) ? node->target_node->index : env->b.size - node->target_node->index;
-
-	while (a_moves > 0 && b_moves > 0)
+	if (node->above_middle)
+		movements_in_a = node->index;
+	else
+		movements_in_a = env->a.size - node->index;
+	if (node->target_node->above_middle)
+		movements_in_b = node->target_node->index;
+	else
+		movements_in_b = env->b.size - node->target_node->index;
+	while (movements_in_a > 0 && movements_in_b > 0)
 	{
-		if (node->index <= env->a.size / 2 && node->target_node->index <= env->b.size / 2)
+		if (node->above_middle && node->target_node->above_middle)
 			rr(env);
-		else if (node->index > env->a.size / 2 && node->target_node->index > env->b.size / 2)
+		else if (!node->above_middle && !node->target_node->above_middle)
 			rrr(env);
 		else
 			break ;
-		a_moves--;
-		b_moves--;
+		movements_in_a--;
+		movements_in_b--;
 	}
-
-	while (a_moves-- > 0)
+	while (movements_in_a-- > 0)
 	{
-		if (node->index <= env->a.size / 2)
+		if (node->above_middle)
 			ra(env);
 		else
 			rra(env);
 	}
-
-	while (b_moves-- > 0)
+	while (movements_in_b-- > 0)
 	{
-		if (node->target_node->index <= env->b.size / 2)
+		if (node->target_node->above_middle)
 			rb(env);
 		else
 			rrb(env);
 	}
-
 	pb(env);
 }
 
-static void push_node_in_stack_a(t_env *env, t_node *node) {
-    int a_moves = (node->index <= env->a.size / 2) ? node->index : env->a.size - node->index;
+static void	push_node_in_stack_a(t_env *env, t_node *node)
+{
+	int	movements_in_a;
 
-    while (a_moves-- > 0) {
-        if (node->index <= env->a.size / 2) ra(env);
-        else rra(env);
-    }
-
-    pa(env);
+	if (node->above_middle)
+		movements_in_a = node->index;
+	else
+		movements_in_a = env->a.size - node->index;
+	while (movements_in_a-- > 0)
+	{
+		if (node->above_middle)
+			ra(env);
+		else
+			rra(env);
+	}
+	pa(env);
 }
+
 void	sort_stack(t_env *env)
 {
-	t_node *node;
-	t_node *smallest_value;
-	int 	size;
-	// move_two_elements_to_stack_b(env);
+	int		size;
+	t_node	*node;
+	t_node	*smallest_value;
 
-	// Necessario ?
 	size = env->a.size;
 	if (size-- > 3 && !is_sorted(&env->a))
 		pb(env);
 	if (size-- > 3 && !is_sorted(&env->a))
 		pb(env);
-	
 	while (size-- > 3 && !is_sorted(&env->a))
 	{
 		update_index_in_stack(&env->a);
