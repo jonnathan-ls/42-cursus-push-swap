@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/25 16:29:04 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/25 20:21:45 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,21 @@ static void	rotate_down(t_stack *stack)
 	}
 }
 
-void	rra(t_env *env)
+void	rra(t_stacks *stacks)
 {
-	rotate_down(&env->a);
+	rotate_down(&stacks->a);
 	ft_putstr_fd("rra\n", STDOUT_FILENO);
 }
 
-void	rrb(t_env	*env)
+void	rrb(t_stacks	*stacks)
 {
-	rotate_down(&env->b);
+	rotate_down(&stacks->b);
 	ft_putstr_fd("rrb\n", STDOUT_FILENO);
 }
 
-void	rrr(t_env *env)
+void	rrr(t_stacks *stacks)
 {
-	rotate_down(&env->a);
-	rotate_down(&env->b);
+	rotate_down(&stacks->a);
+	rotate_down(&stacks->b);
 	ft_putstr_fd("rrr\n", STDOUT_FILENO);
 }

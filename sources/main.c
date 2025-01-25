@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/25 19:58:47 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/25 20:22:15 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,42 +60,43 @@ static void	validates_arguments(char **args, int args_count, int argc)
 	}
 }
 
-static void	process_stack(t_env *env, int argc, char **args, int args_count)
+static void	process_stack(
+	t_stacks *stacks, int argc, char **args, int args_count)
 {
-	if (!init_stacks(env, args_count, args))
+	if (!init_stacks(stacks, args_count, args))
 	{
-		free_mallocs(env, argc, args, args_count);
+		free_mallocs(stacks, argc, args, args_count);
 		ft_putstr_fd(ERROR_MESSAGE, STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
-	if (is_sorted(&env->a))
+	if (is_sorted(&stacks->a))
 	{
-		free_mallocs(env, argc, args, args_count);
+		free_mallocs(stacks, argc, args, args_count);
 		exit(EXIT_SUCCESS);
 	}
 }
 
-static void	sort_stack(t_env *env)
+static void	sort_stack(t_stacks *stacks)
 {
-	if (env->a.size == 2)
-		sa(env);
-	else if (env->a.size == 3)
-		sort_three(env);
+	if (stacks->a.size == 2)
+		sa(stacks);
+	else if (stacks->a.size == 3)
+		sort_three(stacks);
 	else
-		sort_big(env);
+		sort_big(stacks);
 }
 
 int	main(int argc, char **argv)
 {
-	t_env	env;
-	char	**args;
-	int		args_count;
+	t_stacks	stacks;
+	char		**args;
+	int			args_count;
 
 	args = get_arguments(argc, argv);
 	args_count = ft_strslen(args);
 	validates_arguments(args, args_count, argc);
-	process_stack(&env, argc, args, args_count);
-	sort_stack(&env);
-	free_mallocs(&env, argc, args, args_count);
+	process_stack(&stacks, argc, args, args_count);
+	sort_stack(&stacks);
+	free_mallocs(&stacks, argc, args, args_count);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/25 19:40:41 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/25 20:21:44 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,50 +48,50 @@ void	update_index_in_stack(t_stack *stack)
 	}
 }
 
-int	calculate_cost_to_push_node_to_stack_b(t_node *node, t_env *env)
+int	calculate_cost_to_push_node_to_stack_b(t_node *node, t_stacks *stacks)
 {
 	int	cost_to_push;
 
 	cost_to_push = node->index;
 	if (!node->above_middle)
-		cost_to_push = env->a.size - node->index;
+		cost_to_push = stacks->a.size - node->index;
 	if (node->target_node->above_middle)
 		cost_to_push += node->target_node->index;
 	else
-		cost_to_push += env->b.size - node->target_node->index;
+		cost_to_push += stacks->b.size - node->target_node->index;
 	return (cost_to_push);
 }
 
-void	set_target_node_for_each_element_in_stack_a(t_env *env)
+void	set_target_node_for_each_element_in_stack_a(t_stacks *stacks)
 {
 	int		index;
 	t_node	*node;
 	t_node	*target_node;
 
 	index = 0;
-	node = env->a.top;
-	while (index < env->a.size)
+	node = stacks->a.top;
+	while (index < stacks->a.size)
 	{
 		node->index = index;
-		target_node = find_the_smallest_closest_number(node, &env->b);
+		target_node = find_the_smallest_closest_number(node, &stacks->b);
 		if (target_node == NULL)
-			target_node = find_the_biggest_number(&env->b);
+			target_node = find_the_biggest_number(&stacks->b);
 		node->target_node = target_node;
 		node = node->next;
 		index++;
 	}
 }
 
-void	free_mallocs(t_env *env, int argc, char **args, int args_len)
+void	free_mallocs(t_stacks *stacks, int argc, char **args, int args_len)
 {
 	int		index;
 	t_node	*node;
 
 	index = 0;
-	while (index < env->a.size)
+	while (index < stacks->a.size)
 	{
-		node = env->a.top;
-		env->a.top = node->next;
+		node = stacks->a.top;
+		stacks->a.top = node->next;
 		free(node);
 		index++;
 	}

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 17:25:59 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/01/25 20:20:02 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/25 20:20:36 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ typedef struct s_stack
 	t_node	*base;
 }	t_stack;
 
-typedef struct s_env
+typedef struct s_stacks
 {
 	t_stack	a;
 	t_stack	b;
-}	t_env;
+}	t_stacks;
 
 #endif

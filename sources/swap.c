@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/25 16:28:41 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/25 20:21:44 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,21 @@ static void	swap(t_stack *stack)
 	}
 }
 
-void	sa(t_env	*env)
+void	sa(t_stacks	*stacks)
 {
-	swap(&env->a);
+	swap(&stacks->a);
 	ft_putstr_fd("sa\n", STDOUT_FILENO);
 }
 
-void	sb(t_env	*env)
+void	sb(t_stacks	*stacks)
 {
-	swap(&env->b);
+	swap(&stacks->b);
 	ft_putstr_fd("sb\n", STDOUT_FILENO);
 }
 
-void	ss(t_env	*env)
+void	ss(t_stacks	*stacks)
 {
-	swap(&env->a);
-	swap(&env->b);
+	swap(&stacks->a);
+	swap(&stacks->b);
 	ft_putstr_fd("ss\n", STDOUT_FILENO);
 }

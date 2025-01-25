@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/25 19:46:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/25 20:21:44 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_node	*find_the_biggest_closest_number(t_node *node, t_stack *stack)
 	return (closest_bigger_node);
 }
 
-t_node	*find_node_to_push_in_stack_b(t_env *env)
+t_node	*find_node_to_push_in_stack_b(t_stacks *stacks)
 {
 	int		index;
 	int		node_cost;
@@ -121,12 +121,12 @@ t_node	*find_node_to_push_in_stack_b(t_env *env)
 
 	index = 0;
 	cheapest_cost = 0;
-	node = env->a.top;
+	node = stacks->a.top;
 	cheapest_node = NULL;
-	while (index < env->a.size)
+	while (index < stacks->a.size)
 	{
 		node->index = index;
-		node_cost = calculate_cost_to_push_node_to_stack_b(node, env);
+		node_cost = calculate_cost_to_push_node_to_stack_b(node, stacks);
 		if (cheapest_node == NULL || node_cost < cheapest_cost)
 		{
 			cheapest_node = node;
