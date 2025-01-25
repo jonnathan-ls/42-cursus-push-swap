@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/24 22:55:56 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/25 16:02:19 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static bool	is_valid_integer(const char *number_str)
 	num_str.is_negative = number_str[index] == '-';
 	num_str.has_signal = (num_str.is_negative || (number_str[index] == '+'));
 	if (num_str.size == 0 || (num_str.has_signal && num_str.size == 1))
-		print_error_and_exit_failure();
+		return (false);
 	if (num_str.has_signal)
 		index++;
 	while (number_str[index])
@@ -59,24 +59,24 @@ static bool	is_valid_integer(const char *number_str)
 	if (num_str.is_negative)
 		index--;
 	if (index > INT_SIZE_DIGITS)
-		print_error_and_exit_failure();
+		return (false);
 	if (index == INT_SIZE_DIGITS && is_greater_than_integer(num_str))
-		print_error_and_exit_failure();
+		return (false);
 	return (true);
 }
 
-static void	validates_arguments(char **args, int size)
+static bool	arguments_are_valid(char **args, int size)
 {
 	int	curr;
 	int	next;
 
 	if (args == NULL)
-		print_error_and_exit_failure();
+		return (false);
 	curr = 0;
 	while (curr < size)
 	{
 		if (!is_valid_integer(args[curr]))
-			print_error_and_exit_failure();
+			return (false);
 		curr++;
 	}
 	curr = 0;
@@ -86,11 +86,12 @@ static void	validates_arguments(char **args, int size)
 		while (next < size)
 		{
 			if (ft_atoi(args[curr]) == ft_atoi(args[next]))
-				print_error_and_exit_failure();
+				return (false);
 			next++;
 		}
 		curr++;
 	}
+	return (true);
 }
 
 void	push_node(t_stack *stack, t_node *node)
@@ -120,14 +121,39 @@ t_node	*new_node(int number)
 
 	node = (t_node *)malloc(sizeof(t_node));
 	if (!node)
-		print_error_and_exit_failure();
+		return (NULL);
 	node->nbr = number;
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);
 }
 
-void	init_stacks(t_env *env,	int size, char **args_list)
+static void	free_mallocs(t_env *env, int argc, char **args, int args_len)
+{
+	int		index;
+	t_node	*node;
+
+	index = 0;
+	while (index < env->a.size)
+	{
+		node = env->a.top;
+		env->a.top = node->next;
+		free(node);
+		index++;
+	}
+	if (argc == 2)
+	{
+		index = 0;
+		while (index < args_len)
+		{
+			free(args[index]);
+			index++;
+		}
+		free(args);
+	}
+}
+
+void	init_stacks(t_env *env,	int size, char **args, int argc)
 {
 	int		number;
 	t_node	*node;
@@ -142,8 +168,13 @@ void	init_stacks(t_env *env,	int size, char **args_list)
 	env->b.size = 0;
 	while (size > 0)
 	{
-		number = ft_atoi(args_list[size - 1]);
+		number = ft_atoi(args[size - 1]);
 		node = new_node(number);
+		if (!node)
+		{
+			free_mallocs(env, argc, args, size);
+			print_error_and_exit_failure();
+		}
 		node->index = size - 1;
 		if (previous_node != NULL)
 			node->prev = previous_node;
@@ -169,28 +200,6 @@ void sort_three(t_env *env)
 		sa(env);
 }
 
-void free_mallocs(t_env *env, int argc, char **args, int args_count)
-{
-	int		index;
-
-	index = 0;
-	while (index < env->a.size)
-	{
-		free(env->a.top);
-		env->a.top = env->a.top->next;
-		index++;
-	}
-	if (argc == 2)
-	{
-		index = 0;
-		while (index < args_count)
-		{
-			free(args[index]);
-			index++;
-		}
-		free(args);
-	}
-}
 
 int	main(int argc, char **argv)
 {
@@ -206,10 +215,27 @@ int	main(int argc, char **argv)
 	else
 		args = argv + 1;
 	if (args[0] == NULL)
+	{
+		free(args);
 		print_error_and_exit_failure();
+	}
 	args_count = ft_strslen(args);
-	validates_arguments(args, args_count);
-	init_stacks(&env, args_count, args);
+	if (!arguments_are_valid(args, args_count))
+	{
+		ft_putstr_fd("Parse error\n", STDERR_FILENO);
+		if (argc == 2)
+		{
+			int index = 0;
+			while (index < args_count)
+			{
+				free(args[index]);
+				index++;
+			}
+			free(args);
+		}
+		print_error_and_exit_failure();
+	}
+	init_stacks(&env, args_count, args, argc);
 	if (is_sorted(&env.a))
 		return (EXIT_SUCCESS);
 	if (env.a.size == 2)
