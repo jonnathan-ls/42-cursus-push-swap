@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/25 19:42:33 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/25 20:10:36 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	adjust_stack_a_putting_in_order(t_env *env)
 
 	update_index_in_stack(&env->a);
 	smallest_value = find_the_smallest_number(&env->a);
-	if (smallest_value->index <= env->a.size / 2)
+	if (smallest_value->above_middle)
 		while (env->a.top != smallest_value)
 			ra(env);
 	else

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/25 19:46:28 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:58:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,21 @@
 char	**get_arguments(int argc, char **argv)
 {
 	char	**args;
+	int		string_with_multiple_args;
 
 	if (argc == 1)
 		return (EXIT_SUCCESS);
-	if (argv[1][0] == '\0')
+	string_with_multiple_args = argc == 2;
+	if (string_with_multiple_args && argv[1][0] == NULL_CHAR)
 	{
 		ft_putstr_fd(ERROR_MESSAGE, STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
-	if (argc == 2 && argv[1][0] != '\0')
+	if (string_with_multiple_args)
 		args = ft_split(argv[1], SPACE_CHAR);
 	else
 		args = argv + 1;
-	if (argc == 2 && args[0] == NULL)
+	if (string_with_multiple_args && args[0] == NULL)
 	{
 		free(args);
 		ft_putstr_fd(ERROR_MESSAGE, STDERR_FILENO);
@@ -89,7 +91,6 @@ int	main(int argc, char **argv)
 	char	**args;
 	int		args_count;
 
-	args = NULL;
 	args = get_arguments(argc, argv);
 	args_count = ft_strslen(args);
 	validates_arguments(args, args_count, argc);

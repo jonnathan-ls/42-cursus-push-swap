@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/25 18:29:33 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/25 20:10:51 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static int	calculate_movements(int index, int size, int above_middle)
 }
 
 static void	execute_simultaneous_movements(
-	t_env *env, t_node *node, int *movements_in_a, int *movements_in_b)
+	t_env *env, t_node *node, int *movements_of_a, int *movements_of_b)
 {
-	while (*movements_in_a > 0 && *movements_in_b > 0)
+	while (*movements_of_a > 0 && *movements_of_b > 0)
 	{
 		if (node->above_middle && node->target_node->above_middle)
 			rr(env);
@@ -31,8 +31,8 @@ static void	execute_simultaneous_movements(
 			rrr(env);
 		else
 			break ;
-		(*movements_in_a)--;
-		(*movements_in_b)--;
+		(*movements_of_a)--;
+		(*movements_of_b)--;
 	}
 }
 
@@ -50,31 +50,31 @@ static void	execute_remaining_movements(t_env *env, int movements,
 
 void	push_node_in_stack_b(t_env *env, t_node *node)
 {
-	int	movements_in_a;
-	int	movements_in_b;
+	int	movements_of_a;
+	int	movements_of_b;
 
-	movements_in_a = calculate_movements(
+	movements_of_a = calculate_movements(
 			node->index, env->a.size, node->above_middle);
-	movements_in_b = calculate_movements(node->target_node->index,
+	movements_of_b = calculate_movements(node->target_node->index,
 			env->b.size, node->target_node->above_middle);
 	execute_simultaneous_movements(env,
-		node, &movements_in_a, &movements_in_b);
+		node, &movements_of_a, &movements_of_b);
 	execute_remaining_movements(env,
-		movements_in_a, node->above_middle, ra, rra);
+		movements_of_a, node->above_middle, ra, rra);
 	execute_remaining_movements(env,
-		movements_in_b, node->target_node->above_middle, rb, rrb);
+		movements_of_b, node->target_node->above_middle, rb, rrb);
 	pb(env);
 }
 
 void	push_node_in_stack_a(t_env *env, t_node *node)
 {
-	int	movements_in_a;
+	int	movements_of_a;
 
 	if (node->above_middle)
-		movements_in_a = node->index;
+		movements_of_a = node->index;
 	else
-		movements_in_a = env->a.size - node->index;
-	while (movements_in_a-- > 0)
+		movements_of_a = env->a.size - node->index;
+	while (movements_of_a-- > 0)
 	{
 		if (node->above_middle)
 			ra(env);

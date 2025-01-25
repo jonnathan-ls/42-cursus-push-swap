@@ -6,14 +6,14 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 17:25:59 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/01/24 01:40:41 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/25 20:20:02 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
-# include <stdbool.h>
 # include "libft.h"
+# include <stdbool.h>
 
 typedef struct s_num_str
 {
