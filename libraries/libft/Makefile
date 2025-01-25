@@ -6,7 +6,7 @@
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/16 20:44:31 by jlacerda          #+#    #+#              #
-#    Updated: 2025/01/24 01:45:25 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/01/24 21:28:16 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ OBJS_DIR = ./objects
 INCLUDES_DIR = ./includes
 
 SOURCES = $(SRCS_DIR)/ft_atoi.c $(SRCS_DIR)/ft_isdigit.c $(SRCS_DIR)/ft_putstr_fd.c \
-	$(SRCS_DIR)/ft_split.c $(SRCS_DIR)/ft_strlen.c \ $(SRCS_DIR)/ft_strslen.c 
+	$(SRCS_DIR)/ft_split.c $(SRCS_DIR)/ft_strlen.c $(SRCS_DIR)/ft_strslen.c $(SRCS_DIR)/ft_strlcpy.c 
 	
 OBJECTS = $(SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 

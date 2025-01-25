@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/24 02:00:10 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/24 22:55:56 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static bool	is_greater_than_integer(t_num_str num)
 			return (true);
 		index++;
 	}
-	return (true);
+	return (false);
 }
 
 static bool	is_valid_integer(const char *number_str)
@@ -46,6 +46,8 @@ static bool	is_valid_integer(const char *number_str)
 	num_str.size = ft_strlen(number_str);
 	num_str.is_negative = number_str[index] == '-';
 	num_str.has_signal = (num_str.is_negative || (number_str[index] == '+'));
+	if (num_str.size == 0 || (num_str.has_signal && num_str.size == 1))
+		print_error_and_exit_failure();
 	if (num_str.has_signal)
 		index++;
 	while (number_str[index])
@@ -198,11 +200,13 @@ int	main(int argc, char **argv)
 
 	args = NULL;
 	if (argc == 1)
-		return (EXIT_FAILURE);
+		return (EXIT_SUCCESS);
 	if (argc == 2 && argv[1][0] != '\0')
 		args = ft_split(argv[1], SPACE_CHAR);
 	else
 		args = argv + 1;
+	if (args[0] == NULL)
+		print_error_and_exit_failure();
 	args_count = ft_strslen(args);
 	validates_arguments(args, args_count);
 	init_stacks(&env, args_count, args);
