@@ -6,12 +6,12 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/22 21:25:27 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/25 16:29:11 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
 #include "libft.h"
+#include "push_swap.h"
 
 static void	rotate_up(t_stack *stack)
 {

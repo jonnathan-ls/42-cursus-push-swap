@@ -6,14 +6,31 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/22 22:08:41 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:42:34 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
 #include "libft.h"
+#include "push_swap.h"
 
-void	push(t_stack *from, t_stack *to)
+static void	init_stack(t_stack *to, t_node *new_node)
+{
+	to->top = new_node;
+	to->base = new_node;
+	new_node->next = new_node;
+	new_node->prev = new_node;
+}
+
+static void	update_stack(t_stack *to, t_node *new_node)
+{
+	new_node->next = to->top;
+	new_node->prev = to->base;
+	to->top->prev = new_node;
+	to->base->next = new_node;
+	to->top = new_node;
+}
+
+static void	push(t_stack *from, t_stack *to)
 {
 	t_node	*new_node;
 
@@ -24,25 +41,12 @@ void	push(t_stack *from, t_stack *to)
 		from->top->prev = from->base;
 		from->base->next = from->top;
 		if (to->size == 0)
-		{
-			to->top = new_node;
-			to->base = new_node;
-			to->top->next = new_node;
-			to->top->prev = new_node;
-			to->base->next = new_node;
-			to->base->prev = new_node;
-		}
+			init_stack(to, new_node);
 		else
-		{
-			new_node->next = to->top;
-			new_node->prev = to->base;
-			to->top->prev = new_node;
-			to->base->next = new_node;
-			to->top = new_node;
-		}
+			update_stack(to, new_node);
+		from->size--;
+		to->size++;
 	}
-	from->size--;
-	to->size++;
 }
 
 void	pa(t_env *env)

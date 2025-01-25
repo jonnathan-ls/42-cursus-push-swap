@@ -6,12 +6,12 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/22 21:45:05 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/25 16:28:41 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
 #include "libft.h"
+#include "push_swap.h"
 
 static void	swap(t_stack *stack)
 {
@@ -19,33 +19,18 @@ static void	swap(t_stack *stack)
 
 	if (stack->size > 1)
 	{
+		temp_node = stack->top;
+		stack->top = stack->top->next;
+		stack->top->prev = stack->base;
+		stack->base->next = stack->top;
+		temp_node->next = stack->top->next;
+		stack->top->next->prev = temp_node;
+		stack->top->next = temp_node;
+		temp_node->prev = stack->top;
 		if (stack->size == 2)
-		{
-			stack->top = stack->top->prev;
-			stack->base = stack->base->next;
-		}
+			stack->base = stack->top->next;
 		else if (stack->size == 3)
-		{
-			temp_node = stack->top;
-			stack->top = stack->top->next;
-			stack->top->prev = stack->base;
-			stack->top->next = temp_node;
-			temp_node->prev = stack->top;
-			temp_node->next = stack->base;
 			stack->base->prev = temp_node;
-			stack->base->next = stack->top;
-		}
-		else
-		{
-			temp_node = stack->top;
-			stack->top = stack->top->next;
-			stack->top->prev = stack->base;
-			stack->base->next = stack->top;
-			temp_node->next = stack->top->next;
-			stack->top->next->prev = temp_node;
-			stack->top->next = temp_node;
-			temp_node->prev = stack->top;
-		}
 	}
 }
 
