@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/25 20:21:44 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/26 21:45:03 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,16 @@ static void	push(t_stack *from, t_stack *to)
 	}
 }
 
-void	pa(t_stacks *stacks)
+void	pa(t_stacks *stacks, bool print)
 {
-	push(&(*stacks).b, &(*stacks).a);
-	ft_putstr_fd("pa\n", STDOUT_FILENO);
+	push(&stacks->b, &stacks->a);
+	if (print)
+		ft_putstr_fd("pa\n", STDOUT_FILENO);
 }
 
-void	pb(t_stacks *stacks)
+void	pb(t_stacks *stacks, bool print)
 {
-	push(&(*stacks).a, &(*stacks).b);
-	ft_putstr_fd("pb\n", STDOUT_FILENO);
+	push(&stacks->a, &stacks->b);
+	if (print)
+		ft_putstr_fd("pb\n", STDOUT_FILENO);
 }

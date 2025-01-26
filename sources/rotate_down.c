@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/25 20:21:45 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/26 21:47:22 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,24 @@ static void	rotate_down(t_stack *stack)
 	}
 }
 
-void	rra(t_stacks *stacks)
+void	rra(t_stacks *stacks, bool print)
 {
 	rotate_down(&stacks->a);
-	ft_putstr_fd("rra\n", STDOUT_FILENO);
+	if (print)
+		ft_putstr_fd("rra\n", STDOUT_FILENO);
 }
 
-void	rrb(t_stacks	*stacks)
+void	rrb(t_stacks	*stacks, bool print)
 {
 	rotate_down(&stacks->b);
-	ft_putstr_fd("rrb\n", STDOUT_FILENO);
+	if (print)
+		ft_putstr_fd("rrb\n", STDOUT_FILENO);
 }
 
-void	rrr(t_stacks *stacks)
+void	rrr(t_stacks *stacks, bool print)
 {
 	rotate_down(&stacks->a);
 	rotate_down(&stacks->b);
-	ft_putstr_fd("rrr\n", STDOUT_FILENO);
+	if (print)
+		ft_putstr_fd("rrr\n", STDOUT_FILENO);
 }

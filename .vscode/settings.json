@@ -10,9 +10,6 @@
 		"initializer_list": "c",
 		"regex": "c",
 		"utility": "c",
-		"libft.h": "c",
-		"stdlib.h": "c",
-		"stdbool.h": "c",
-		"ranges": "c"
+		"functional": "c"
 	}
 }

@@ -5,8 +5,8 @@
       "name": "Debug Push_swap",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/push_swap",
-      "args": [ "" ], // Substitua pelos argumentos desejados
+      "program": "${workspaceFolder}/checker",
+      "args": [ "2 -1 1" ], 
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],

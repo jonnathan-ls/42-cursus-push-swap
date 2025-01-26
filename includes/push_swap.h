@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 17:25:59 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/01/25 20:21:45 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/26 21:46:23 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,23 @@
 # include "structs.h"
 
 // Operations
-void	ra(t_stacks	*stacks);
-void	rb(t_stacks	*stacks);
-void	rr(t_stacks *stacks);
-void	pa(t_stacks *stacks);
-void	pb(t_stacks *stacks);
-void	sa(t_stacks	*stacks);
-void	sb(t_stacks	*stacks);
-void	ss(t_stacks	*stacks);
-void	rra(t_stacks *stacks);
-void	rrb(t_stacks	*stacks);
-void	rrr(t_stacks *stacks);
+void	ra(t_stacks	*stacks, bool print);
+void	rb(t_stacks	*stacks, bool print);
+void	rr(t_stacks *stacks, bool print);
+void	pa(t_stacks *stacks, bool print);
+void	pb(t_stacks *stacks, bool print);
+void	sa(t_stacks	*stacks, bool print);
+void	sb(t_stacks	*stacks, bool print);
+void	ss(t_stacks	*stacks, bool print);
+void	rra(t_stacks *stacks, bool print);
+void	rrb(t_stacks	*stacks, bool print);
+void	rrr(t_stacks *stacks, bool print);
+
+// Initializer
+char	**get_arguments(int argc, char **argv);
+void	initialize_stacks_with_args(
+			t_stacks *stacks, int argc, char **args, int args_count);
+void	validates_arguments(char **args, int args_count, int argc);
 
 // Utils
 bool	is_sorted(t_stack *stack);
@@ -40,9 +46,8 @@ int		calculate_cost_to_push_node_to_stack_b(t_node *node, t_stacks *stacks);
 
 // Stack
 bool	init_stacks(t_stacks *stacks,	int size, char **args);
-void	free_mallocs(t_stacks *stacks, int argc, char **args, int args_len);
 
-// Validations
+// Validator
 bool	is_greater_than_integer(t_num_str num);
 bool	is_valid_integer(const char *number_str);
 bool	arguments_are_valid(char **args, int size);

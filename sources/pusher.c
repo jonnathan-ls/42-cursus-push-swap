@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/25 20:22:37 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/26 21:57:43 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,13 @@ static void	execute_simultaneous_movements(
 	while (*movements_of_a > 0 && *movements_of_b > 0)
 	{
 		if (node->above_middle && node->target_node->above_middle)
-			rr(stacks);
+			rr(stacks, PRINT_OPT);
 		else if (!node->above_middle && !node->target_node->above_middle)
-			rrr(stacks);
+			rrr(stacks, PRINT_OPT);
 		else
 			break ;
 		(*movements_of_a)--;
 		(*movements_of_b)--;
-	}
-}
-
-static void	execute_remaining_movements(
-	t_stacks *stacks, int movements, int above_middle,
-	void (*move_up)(t_stacks *), void (*move_down)(t_stacks *))
-{
-	while (movements-- > 0)
-	{
-		if (above_middle)
-			move_up(stacks);
-		else
-			move_down(stacks);
 	}
 }
 
@@ -60,11 +47,21 @@ void	push_node_in_stack_b(t_stacks *stacks, t_node *node)
 			stacks->b.size, node->target_node->above_middle);
 	execute_simultaneous_movements(stacks,
 		node, &movements_of_a, &movements_of_b);
-	execute_remaining_movements(stacks,
-		movements_of_a, node->above_middle, ra, rra);
-	execute_remaining_movements(stacks,
-		movements_of_b, node->target_node->above_middle, rb, rrb);
-	pb(stacks);
+	while (movements_of_a-- > 0)
+	{
+		if (node->above_middle)
+			ra(stacks, PRINT_OPT);
+		else
+			rra(stacks, PRINT_OPT);
+	}
+	while (movements_of_b-- > 0)
+	{
+		if (node->target_node->above_middle)
+			rb(stacks, PRINT_OPT);
+		else
+			rrb(stacks, PRINT_OPT);
+	}
+	pb(stacks, PRINT_OPT);
 }
 
 void	push_node_in_stack_a(t_stacks *stacks, t_node *node)
@@ -78,9 +75,9 @@ void	push_node_in_stack_a(t_stacks *stacks, t_node *node)
 	while (movements_of_a-- > 0)
 	{
 		if (node->above_middle)
-			ra(stacks);
+			ra(stacks, PRINT_OPT);
 		else
-			rra(stacks);
+			rra(stacks, PRINT_OPT);
 	}
-	pa(stacks);
+	pa(stacks, PRINT_OPT);
 }

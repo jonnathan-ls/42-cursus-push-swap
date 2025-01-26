@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sorting.c                                          :+:      :+:    :+:   */
+/*   sorter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/25 20:21:45 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/26 21:58:07 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static void	push_elements_to_stack_b(t_stacks *stacks)
 
 	size = stacks->a.size;
 	if (size-- > 3 && !is_sorted(&stacks->a))
-		pb(stacks);
+		pb(stacks, PRINT_OPT);
 	if (size-- > 3 && !is_sorted(&stacks->a))
-		pb(stacks);
+		pb(stacks, PRINT_OPT);
 	while (size-- > 3 && !is_sorted(&stacks->a))
 	{
 		update_index_in_stack(&stacks->a);
@@ -56,10 +56,10 @@ static void	adjust_stack_a_putting_in_order(t_stacks *stacks)
 	smallest_value = find_the_smallest_number(&stacks->a);
 	if (smallest_value->above_middle)
 		while (stacks->a.top != smallest_value)
-			ra(stacks);
+			ra(stacks, PRINT_OPT);
 	else
 		while (stacks->a.top != smallest_value)
-			rra(stacks);
+			rra(stacks, PRINT_OPT);
 }
 
 void	sort_three(t_stacks *stacks)
@@ -68,11 +68,11 @@ void	sort_three(t_stacks *stacks)
 
 	biggest_node = find_the_biggest_number(&stacks->a);
 	if (biggest_node == stacks->a.top)
-		ra(stacks);
+		ra(stacks, PRINT_OPT);
 	else if (biggest_node == stacks->a.top->next)
-		rra(stacks);
+		rra(stacks, PRINT_OPT);
 	if (stacks->a.top->nbr > stacks->a.top->next->nbr)
-		sa(stacks);
+		sa(stacks, PRINT_OPT);
 }
 
 void	sort_big(t_stacks *stacks)
