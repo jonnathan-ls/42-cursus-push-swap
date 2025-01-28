@@ -6,13 +6,20 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/26 22:03:04 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/27 22:58:07 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
 
+/**
+ * @brief Sorts the stack.
+ *
+ * This function sorts the stack.
+ *
+ * @param stacks The stacks.
+ */
 static void	sort_stack(t_stacks *stacks)
 {
 	if (stacks->a.size == 2)
@@ -23,6 +30,15 @@ static void	sort_stack(t_stacks *stacks)
 		sort_big(stacks);
 }
 
+/**
+ * @brief Main function.
+ *
+ * This function is the main function.
+ *
+ * @param argc The number of arguments.
+ * @param argv The arguments.
+ * @return The exit status.
+ */
 int	main(int argc, char **argv)
 {
 	char		**args;

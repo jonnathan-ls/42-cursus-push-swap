@@ -23,7 +23,7 @@ SOURCES = \
 	$(SRCS_DIR)/swap.c \
 	$(SRCS_DIR)/push.c \
 	$(SRCS_DIR)/utils.c \
-	$(SRCS_DIR)/stack.c \
+	$(SRCS_DIR)/stacker.c \
 	$(SRCS_DIR)/finder.c \
 	$(SRCS_DIR)/pusher.c \
 	$(SRCS_DIR)/sorter.c \
@@ -36,10 +36,10 @@ BONUS_SOURCES = \
 $(SRCS_DIR)/swap.c \
 	$(SRCS_DIR)/push.c \
 	$(SRCS_DIR)/utils.c \
-	$(SRCS_DIR)/stack.c \
 	$(SRCS_DIR)/finder.c \
 	$(SRCS_DIR)/pusher.c \
 	$(SRCS_DIR)/sorter.c \
+	$(SRCS_DIR)/stacker.c \
 	$(SRCS_DIR)/validator.c \
 	$(SRCS_DIR)/rotate_up.c \
 	$(SRCS_DIR)/rotate_down.c \

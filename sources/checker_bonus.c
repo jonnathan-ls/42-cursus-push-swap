@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/26 22:48:20 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/27 23:06:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 #include "get_next_line.h"
 #include "checker_bonus.h"
 
+/**
+ * @brief Executes an instruction on the stacks.
+ *
+ * This function executes an instruction on the stacks.
+ *
+ * @param instruction The instruction to execute.
+ * @param stacks The stacks.
+ */
 static void	execute_instruction(char *instruction, t_stacks *stacks)
 {
 	if (ft_strcmp(instruction, "sa\n") == 0)
@@ -40,6 +48,16 @@ static void	execute_instruction(char *instruction, t_stacks *stacks)
 		rrr(stacks, PRINT_OP);
 }
 
+/**
+ * @brief Main function for the checker program.
+ *
+ * This function reads instructions from stdin, executes them on the stacks,
+ * and checks if the stacks are sorted.
+ *
+ * @param argc The number of arguments.
+ * @param argv The arguments.
+ * @return EXIT_SUCCESS if the stacks are sorted, EXIT_FAILURE otherwise.
+ */
 int	main(int argc, char **argv)
 {
 	char		*line;

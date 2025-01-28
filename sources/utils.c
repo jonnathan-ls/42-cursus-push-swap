@@ -6,13 +6,21 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/25 20:21:44 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/27 23:04:44 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
 
+/**
+ * @brief Checks if the stack is sorted.
+ *
+ * This function checks if the stack is sorted.
+ *
+ * @param stack The stack.
+ * @return true if the stack is sorted, false otherwise.
+ */
 bool	is_sorted(t_stack *stack)
 {
 	t_node	*node;
@@ -32,6 +40,13 @@ bool	is_sorted(t_stack *stack)
 	return (true);
 }
 
+/**
+ * @brief Updates the index in the stack.
+ *
+ * This function updates the index in the stack.
+ *
+ * @param stack The stack.
+ */
 void	update_index_in_stack(t_stack *stack)
 {
 	int		index;
@@ -48,6 +63,15 @@ void	update_index_in_stack(t_stack *stack)
 	}
 }
 
+/**
+ * @brief Calculates the cost to push a node to stack b.
+ *
+ * This function calculates the cost to push a node to stack b.
+ *
+ * @param node The node.
+ * @param stacks The stacks.
+ * @return The cost to push the node to stack b.
+ */
 int	calculate_cost_to_push_node_to_stack_b(t_node *node, t_stacks *stacks)
 {
 	int	cost_to_push;
@@ -62,6 +86,13 @@ int	calculate_cost_to_push_node_to_stack_b(t_node *node, t_stacks *stacks)
 	return (cost_to_push);
 }
 
+/**
+ * @brief Sets the target node for each element in stack a.
+ *
+ * This function sets the target node for each element in stack a.
+ *
+ * @param stacks The stacks.
+ */
 void	set_target_node_for_each_element_in_stack_a(t_stacks *stacks)
 {
 	int		index;
@@ -82,6 +113,16 @@ void	set_target_node_for_each_element_in_stack_a(t_stacks *stacks)
 	}
 }
 
+/**
+ * @brief Frees the mallocs.
+ *
+ * This function frees the mallocs.
+ *
+ * @param stacks The stacks.
+ * @param argc The number of arguments.
+ * @param args The arguments.
+ * @param args_len The length of the arguments.
+ */
 void	free_mallocs(t_stacks *stacks, int argc, char **args, int args_len)
 {
 	int		index;

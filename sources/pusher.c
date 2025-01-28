@@ -6,12 +6,22 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/26 21:57:43 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/27 22:59:43 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/**
+ * @brief Calculates the movements of a node to push to stack b.
+ *
+ * This function calculates the movements of a node to push to stack b.
+ *
+ * @param index The index of the node.
+ * @param size The size of the stack.
+ * @param above_middle Whether the node is above the middle of the stack.
+ * @return The number of movements of the node.
+ */
 static int	calculate_movements(int index, int size, int above_middle)
 {
 	if (above_middle)
@@ -20,6 +30,16 @@ static int	calculate_movements(int index, int size, int above_middle)
 		return (size - index);
 }
 
+/**
+ * @brief Executes the simultaneous movements of a node.
+ *
+ * This function executes the simultaneous movements of a node.
+ *
+ * @param stacks The stacks.
+ * @param node The node.
+ * @param movements_of_a The number of movements of the node.
+ * @param movements_of_b The number of movements of the node.
+ */
 static void	execute_simultaneous_movements(
 	t_stacks *stacks, t_node *node, int *movements_of_a, int *movements_of_b)
 {
@@ -36,6 +56,14 @@ static void	execute_simultaneous_movements(
 	}
 }
 
+/**
+ * @brief Pushes a node in stack b.
+ *
+ * This function pushes a node in stack b.
+ *
+ * @param stacks The stacks.
+ * @param node The node.
+ */
 void	push_node_in_stack_b(t_stacks *stacks, t_node *node)
 {
 	int	movements_of_a;
@@ -64,6 +92,14 @@ void	push_node_in_stack_b(t_stacks *stacks, t_node *node)
 	pb(stacks, PRINT_OPT);
 }
 
+/**
+ * @brief Pushes a node in stack a.
+ *
+ * This function pushes a node in stack a.
+ *
+ * @param stacks The stacks.
+ * @param node The node.
+ */
 void	push_node_in_stack_a(t_stacks *stacks, t_node *node)
 {
 	int	movements_of_a;

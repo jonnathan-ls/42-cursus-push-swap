@@ -1,17 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validations.c                                      :+:      :+:    :+:   */
+/*   validator.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/25 16:46:54 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/27 23:17:21 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/**
+ * @brief Checks if a number is greater than the integer.
+ *
+ * This function checks if a number is greater than the integer.
+ *
+ * @param num The number to check.
+ * @return true if the number is greater than the integer, false otherwise.
+ */
 bool	is_greater_than_integer(t_num_str num)
 {
 	int		index;
@@ -35,6 +43,14 @@ bool	is_greater_than_integer(t_num_str num)
 	return (false);
 }
 
+/**
+ * @brief Checks if a string is a valid integer.
+ *
+ * This function checks if a string is a valid integer.
+ *
+ * @param number_str The string to check.
+ * @return true if the string is a valid integer, false otherwise.
+ */
 bool	is_valid_integer(const char *number_str)
 {
 	int			index;
@@ -64,6 +80,18 @@ bool	is_valid_integer(const char *number_str)
 	return (true);
 }
 
+/**
+ * @brief Checks if the arguments are valid integers 
+	* and if there are no repeated.
+ *
+ * This function checks if the arguments 
+	* are valid integers and if there are no repeated.
+ *
+ * @param args The arguments to check.
+ * @param size The size of the arguments.
+ * @return true if the arguments are valid integers 
+	* and if there are no repeated, false otherwise.
+ */
 bool	arguments_are_valid(char **args, int size)
 {
 	int	curr;

@@ -6,13 +6,20 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/26 21:58:07 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/27 23:01:31 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
 
+/**
+ * @brief Pushes elements to stack b.
+ *
+ * This function pushes elements to stack b.
+ *
+ * @param stacks The stacks.
+ */
 static void	push_elements_to_stack_b(t_stacks *stacks)
 {
 	int		size;
@@ -33,6 +40,13 @@ static void	push_elements_to_stack_b(t_stacks *stacks)
 	}
 }
 
+/**
+ * @brief Pushes elements back to stack a.
+ *
+ * This function pushes elements back to stack a.
+ *
+ * @param stacks The stacks.
+ */
 static void	push_elements_back_to_stack_a(t_stacks *stacks)
 {
 	t_node	*node;
@@ -48,6 +62,13 @@ static void	push_elements_back_to_stack_a(t_stacks *stacks)
 	}
 }
 
+/**
+ * @brief Adjusts the stack a putting in order.
+ *
+ * This function adjusts the stack a putting in order.
+ *
+ * @param stacks The stacks.
+ */
 static void	adjust_stack_a_putting_in_order(t_stacks *stacks)
 {
 	t_node	*smallest_value;
@@ -62,6 +83,13 @@ static void	adjust_stack_a_putting_in_order(t_stacks *stacks)
 			rra(stacks, PRINT_OPT);
 }
 
+/**
+ * @brief Sorts the stack a.
+ *
+ * This function sorts the stack a with three elements.
+ *
+ * @param stacks The stacks.
+ */
 void	sort_three(t_stacks *stacks)
 {
 	t_node	*biggest_node;
@@ -75,6 +103,13 @@ void	sort_three(t_stacks *stacks)
 		sa(stacks, PRINT_OPT);
 }
 
+/**
+ * @brief Sorts the stack a.
+ *
+ * This function sorts the stack a with more than three elements.
+ *
+ * @param stacks The stacks.
+ */
 void	sort_big(t_stacks *stacks)
 {
 	push_elements_to_stack_b(stacks);

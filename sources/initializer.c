@@ -6,13 +6,23 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/25 21:14:32 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/01/27 22:57:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
 
+/**
+ * @brief Gets the arguments from the command line.
+ *
+ * This function gets the arguments from the command line and validates them.
+ * It returns the arguments.
+ *
+ * @param argc The number of arguments.
+ * @param argv The arguments.
+ * @return The arguments.
+ */
 char	**get_arguments(int argc, char **argv)
 {
 	char	**args;
@@ -39,6 +49,15 @@ char	**get_arguments(int argc, char **argv)
 	return (args);
 }
 
+/**
+ * @brief Validates the arguments.
+ *
+ * This function validates the arguments.
+ *
+ * @param args The arguments.
+ * @param args_count The number of arguments.
+ * @param argc The number of arguments.
+ */
 void	validates_arguments(char **args, int args_count, int argc)
 {
 	int	index;
@@ -60,6 +79,16 @@ void	validates_arguments(char **args, int args_count, int argc)
 	}
 }
 
+/**
+ * @brief Initializes the stacks with the arguments.
+ *
+ * This function initializes the stacks with the arguments.
+ *
+ * @param stacks The stacks.
+ * @param argc The number of arguments.
+ * @param args The arguments.
+ * @param args_count The number of arguments.
+ */
 void	initialize_stacks_with_args(
 	t_stacks *stacks, int argc, char **args, int args_count)
 {
