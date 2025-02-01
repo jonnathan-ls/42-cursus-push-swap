@@ -53,7 +53,7 @@ LIBFT_DIR = $(LIBS_DIR)/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -I$(INCLUDES_DIR) -I$(LIBFT_DIR)/includes
+CFLAGS = -Wall -Wextra -Werror -I$(INCLUDES_DIR) -I$(LIBFT_DIR)/includes
 
 all: $(LIBFT) $(NAME)
 
