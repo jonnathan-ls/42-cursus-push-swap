@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/01/27 23:06:47 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/01 21:33:28 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,37 +22,72 @@
  * @param instruction The instruction to execute.
  * @param stacks The stacks.
  */
-static void	execute_instruction(char *instruction, t_stacks *stacks)
+int	execute_instruction(char *instruction, t_stacks *stacks)
 {
 	if (ft_strcmp(instruction, "sa\n") == 0)
-		sa(stacks, PRINT_OP);
+		return (sa(stacks, PRINT_OP), 1);
 	else if (ft_strcmp(instruction, "sb\n") == 0)
-		sb(stacks, PRINT_OP);
+		return (sb(stacks, PRINT_OP), 1);
 	else if (ft_strcmp(instruction, "ss\n") == 0)
-		ss(stacks, PRINT_OP);
+		return (ss(stacks, PRINT_OP), 1);
 	else if (ft_strcmp(instruction, "pa\n") == 0)
-		pa(stacks, PRINT_OP);
+		return (pa(stacks, PRINT_OP), 1);
 	else if (ft_strcmp(instruction, "pb\n") == 0)
-		pb(stacks, PRINT_OP);
+		return (pb(stacks, PRINT_OP), 1);
 	else if (ft_strcmp(instruction, "ra\n") == 0)
-		ra(stacks, PRINT_OP);
+		return (ra(stacks, PRINT_OP), 1);
 	else if (ft_strcmp(instruction, "rb\n") == 0)
-		rb(stacks, PRINT_OP);
+		return (rb(stacks, PRINT_OP), 1);
 	else if (ft_strcmp(instruction, "rr\n") == 0)
-		rr(stacks, PRINT_OP);
+		return (rr(stacks, PRINT_OP), 1);
 	else if (ft_strcmp(instruction, "rra\n") == 0)
-		rra(stacks, PRINT_OP);
+		return (rra(stacks, PRINT_OP), 1);
 	else if (ft_strcmp(instruction, "rrb\n") == 0)
-		rrb(stacks, PRINT_OP);
+		return (rrb(stacks, PRINT_OP), 1);
 	else if (ft_strcmp(instruction, "rrr\n") == 0)
-		rrr(stacks, PRINT_OP);
+		return (rrr(stacks, PRINT_OP), 1);
+	return (0);
+}
+
+/**
+	* @brief Processes the instructions.
+	*
+	* This function reads instructions from stdin, 
+	* executes them on the stacks, and checks if the stacks are sorted.
+	*
+	* @param stacks The stacks.
+ */
+static void	process_instructions(t_stacks *stacks)
+{
+	char	*line;
+	int		is_valid_operation;
+
+	line = get_next_line(STDIN_FILENO);
+	while (line)
+	{
+		is_valid_operation = execute_instruction(line, stacks);
+		if (!is_valid_operation)
+			break ;
+		free(line);
+		line = get_next_line(STDIN_FILENO);
+	}
+	free(line);
+	if (!is_valid_operation)
+		ft_putstr_fd(ERROR_MESSAGE, STDERR_FILENO);
+	else
+	{
+		if (is_sorted(&stacks->a) && stacks->b.size == 0)
+			ft_putstr_fd("OK\n", STDOUT_FILENO);
+		else
+			ft_putstr_fd("KO\n", STDOUT_FILENO);
+	}
 }
 
 /**
  * @brief Main function for the checker program.
  *
- * This function reads instructions from stdin, executes them on the stacks,
- * and checks if the stacks are sorted.
+	* This function reads the arguments, validates them, initializes the stacks,
+	* processes the instructions, and frees the mallocs.
  *
  * @param argc The number of arguments.
  * @param argv The arguments.
@@ -60,7 +95,6 @@ static void	execute_instruction(char *instruction, t_stacks *stacks)
  */
 int	main(int argc, char **argv)
 {
-	char		*line;
 	char		**args;
 	t_stacks	stacks;
 	int			args_count;
@@ -69,18 +103,7 @@ int	main(int argc, char **argv)
 	args_count = ft_strslen(args);
 	validates_arguments(args, args_count, argc);
 	initialize_stacks_with_args(&stacks, argc, args, args_count);
-	line = get_next_line(STDIN_FILENO);
-	while (line)
-	{
-		execute_instruction(line, &stacks);
-		free(line);
-		line = get_next_line(STDIN_FILENO);
-	}
-	free(line);
-	if (is_sorted(&stacks.a) && stacks.b.size == 0)
-		ft_putstr_fd("OK\n", STDOUT_FILENO);
-	else
-		ft_putstr_fd("KO\n", STDOUT_FILENO);
+	process_instructions(&stacks);
 	free_mallocs(&stacks, argc, args, args_count);
 	return (EXIT_SUCCESS);
 }
