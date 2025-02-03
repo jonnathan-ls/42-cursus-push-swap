@@ -45,6 +45,8 @@ int	main(int argc, char **argv)
 	t_stacks	stacks;
 	int			args_count;
 
+	if (argc == 1)
+		return (EXIT_SUCCESS);
 	args = get_arguments(argc, argv);
 	args_count = ft_strslen(args);
 	validates_arguments(args, args_count, argc);

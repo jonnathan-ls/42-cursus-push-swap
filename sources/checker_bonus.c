@@ -84,6 +84,27 @@ static void	process_instructions(t_stacks *stacks)
 }
 
 /**
+ * @brief Initializes the stacks with the arguments.
+ *
+ * This function initializes the stacks with the arguments.
+ *
+ * @param stacks The stacks.
+ * @param argc The number of arguments.
+ * @param args The arguments.
+ * @param args_count The number of arguments.
+ */
+void	initialize_stacks_with_args_bonus(
+	t_stacks *stacks, int argc, char **args, int args_count)
+{
+	if (!init_stacks(stacks, args_count, args))
+	{
+		free_mallocs(stacks, argc, args, args_count);
+		ft_putstr_fd(ERROR_MESSAGE, STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
+}
+
+/**
  * @brief Main function for the checker program.
  *
 	* This function reads the arguments, validates them, initializes the stacks,
@@ -99,10 +120,12 @@ int	main(int argc, char **argv)
 	t_stacks	stacks;
 	int			args_count;
 
+	if (argc == 1)
+		return (EXIT_SUCCESS);
 	args = get_arguments(argc, argv);
 	args_count = ft_strslen(args);
 	validates_arguments(args, args_count, argc);
-	initialize_stacks_with_args(&stacks, argc, args, args_count);
+	initialize_stacks_with_args_bonus(&stacks, argc, args, args_count);
 	process_instructions(&stacks);
 	free_mallocs(&stacks, argc, args, args_count);
 	return (EXIT_SUCCESS);
