@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:45:31 by                   #+#    #+#             */
-/*   Updated: 2025/02/01 21:33:28 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/04 20:01:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,7 @@ static void	process_instructions(t_stacks *stacks)
 		free(line);
 		line = get_next_line(STDIN_FILENO);
 	}
-	free(line);
-	if (!is_valid_operation)
+	if (line != NULL && !is_valid_operation)
 		ft_putstr_fd(ERROR_MESSAGE, STDERR_FILENO);
 	else
 	{
@@ -81,6 +80,7 @@ static void	process_instructions(t_stacks *stacks)
 		else
 			ft_putstr_fd("KO\n", STDOUT_FILENO);
 	}
+	free(line);
 }
 
 /**
